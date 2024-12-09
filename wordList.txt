@@ -1,5 +1,7 @@
 unreal
 blueprint
-w¹tek
+metoda
+konstruktor
+referencja
 klasa
 szablon
