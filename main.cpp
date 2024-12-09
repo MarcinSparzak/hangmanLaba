@@ -30,6 +30,7 @@ public:
 		srand(time(NULL));
 		int index = rand() % m_ListOfWords.size();
 		m_currentWord = m_ListOfWords.at(index);
+		m_ListOfWords.erase(m_ListOfWords.begin() + index);
 		m_isSolved = false;
 		m_usedLetters.clear();
 		m_roundScore = 0;
@@ -37,7 +38,6 @@ public:
 
 	bool CheckGameCondition()
 	{
-		cout << (m_nrOfErrors < m_errorLimit) << endl;
 		return m_nrOfErrors < m_errorLimit;
 	}
 
@@ -118,6 +118,20 @@ public:
 			cout << endl << "Punkty: " << m_score << "; B³êdy: " << m_nrOfErrors << endl;
 		}
 	}
+
+	void SaveScore()
+	{
+		ofstream highScore("highScore.txt", ios::in | ios::ate);
+		if (highScore.is_open())
+		{
+			highScore << m_score << "\n";
+			highScore.close();
+		}
+		else
+		{
+			cout << "Unable to open file";
+		}
+	}
 private:
 	int m_score;
 	int m_nrOfErrors;
@@ -149,5 +163,6 @@ int main()
 			Game.Render();
 		}
 	}
+	Game.SaveScore();
 	return 0;
 }
